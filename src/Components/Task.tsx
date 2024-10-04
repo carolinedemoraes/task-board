@@ -1,17 +1,24 @@
-// Task.tsx
+
 import React from 'react';
 import { TaskType } from "../Types/TaskType";
+import { TaskItem } from './Board.styles';
 
 interface TaskProps {
-    task: TaskType; // A tarefa individual
+    task: TaskType;
 }
 
 const Task: React.FC<TaskProps> = ({ task }) => {
     return (
-        <li>
-            <h3>{task.title}</h3>
-            <p>{task.body}</p>
-        </li>
+        <TaskItem>
+            <li>
+                <h3>{task.title}</h3>
+                <p>{task.body}</p>
+
+            </li>
+
+
+        </TaskItem>
+
     );
 };
 

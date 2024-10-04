@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ColumnType } from "../Types/ColumnType";
 import { TaskType } from '../Types/TaskType';
+import { FormContainer, Input, Textarea, Select, Button } from './TaskForm.styles';
 
 interface TaskFormProps {
     onSubmit: (task: TaskType) => void;
-    columns: ColumnType[];
+    columns: { id: number; title: string }[]; // Adicionando as colunas como props
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, columns }) => {
@@ -12,24 +12,28 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, columns }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (task.columnId === 0) {
+            alert("Selecione uma coluna válida");
+            return;
+        }
         onSubmit(task);
-        setTask({ id: 0, title: '', body: '', columnId: 0 }); // Limpa o formulário após a submissão
+        setTask({ id: 0, title: '', body: '', columnId: 0 });
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
+        <FormContainer onSubmit={handleSubmit}>
+            <Input
                 type="text"
                 value={task.title}
                 onChange={(e) => setTask({ ...task, title: e.target.value })}
                 placeholder="Título da Tarefa"
             />
-            <textarea
+            <Textarea
                 value={task.body}
                 onChange={(e) => setTask({ ...task, body: e.target.value })}
                 placeholder="Descrição"
             />
-            <select
+            <Select
                 value={task.columnId}
                 onChange={(e) => setTask({ ...task, columnId: Number(e.target.value) })}
             >
@@ -37,9 +41,9 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, columns }) => {
                 {columns.map(column => (
                     <option key={column.id} value={column.id}>{column.title}</option>
                 ))}
-            </select>
-            <button type="submit">Criar Tarefa</button>
-        </form>
+            </Select>
+            <Button type="submit">Criar Tarefa</Button>
+        </FormContainer>
     );
 };
 

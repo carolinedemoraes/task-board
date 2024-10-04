@@ -1,7 +1,9 @@
+
 import React from 'react';
-import { ColumnType } from "../Types/ColumnType";
-import { TaskType } from '../Types/TaskType';
+import { ColumnType } from '../Types/ColumnType';
 import Task from './Task';
+import { ColumnContainer, ColumnTitle, TaskList } from './Board.styles';
+import { TaskType } from '../Types/TaskType';
 
 interface ColumnProps {
     column: ColumnType;
@@ -10,15 +12,14 @@ interface ColumnProps {
 
 const Column: React.FC<ColumnProps> = ({ column, tasks }) => {
     return (
-        <div>
-            <h2>{column.title}</h2>
-            <ul>
-                {/* Renderiza as tarefas da coluna */}
-                {tasks.map(task => (
+        <ColumnContainer>
+            <ColumnTitle>{column.title}</ColumnTitle>
+            <TaskList>
+                {tasks.map((task) => (
                     <Task key={task.id} task={task} />
                 ))}
-            </ul>
-        </div>
+            </TaskList>
+        </ColumnContainer>
     );
 };
 

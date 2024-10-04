@@ -1,22 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Board from "./Board";
 import TaskForm from "./TaskForm";
 import { ColumnType } from '../Types/ColumnType';
 import { TaskType } from '../Types/TaskType';
 
 
-export interface TaskType {
-  id: number;
-  title: string;
-  body: string;
-  columnId: number;
-}
-
-export interface ColumnType {
-  id: number;
-  title: string;
-  tasks: TaskType[];
-}
 
 function App() {
   const [columns, setColumns] = useState<ColumnType[]>([
@@ -58,6 +46,7 @@ function App() {
     <div>
       <TaskForm columns={columns} onSubmit={addTask} />
       <Board columns={columns} />
+
     </div>
   );
 }
